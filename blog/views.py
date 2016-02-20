@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.template import Context, loader
+from django.http import HttpResponse
 
 from blog.models import Post
 
