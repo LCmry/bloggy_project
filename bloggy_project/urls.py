@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from .settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
