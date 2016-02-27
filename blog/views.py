@@ -30,7 +30,7 @@ def add_post(request):
       form.save(commit=True)
       return redirect(index)
     else:
-      print form.errors
+      print(form.errors)
   else:
     form = PostForm()
     return render_to_response('blog/add_post.html', {'form': form}, context)
