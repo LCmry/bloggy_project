@@ -27,8 +27,8 @@ def add_post(request):
   if request.method == 'POST':
     form = PostForm(request.POST, request.FILES)
     if form.is_valid():
-      form.save(commit=True)
-      return redirect(index)
+      saved_post = form.save(commit=True)
+      return redirect(post, post_url=saved_post.title.replace(' ', '_'))
     else:
       print(form.errors)
   else:
