@@ -9,13 +9,11 @@ def index(request):
   latest_posts = Post.objects.all().order_by('-created_at')
   t = loader.get_template('blog/index.html')
   context_dict = {'latest_posts': latest_posts, }
-  for post in latest_posts:
-    post.url = post.title.replace(' ', '_')
   c = Context(context_dict)
   return HttpResponse(t.render(c))
 
-def post(request, post_url):
-  single_post = get_object_or_404(Post, title=post_url.replace('_', ' '))
+def post(request, slug):
+  single_post = get_object_or_404(Post, slug=slug)
   single_post.views += 1
   single_post.save()
   t = loader.get_template('blog/post.html')
@@ -28,7 +26,7 @@ def add_post(request):
     form = PostForm(request.POST, request.FILES)
     if form.is_valid():
       saved_post = form.save(commit=True)
-      return redirect(post, post_url=saved_post.title.replace(' ', '_'))
+      return redirect(post, slug=saved_post.slug)
     else:
       print(form.errors)
   else:
